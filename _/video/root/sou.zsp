@@ -1,0 +1,43 @@
+<%
+加载util/login.zsp、呔。
+赋予字以我的参、t。
+%><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>搜-<%‘字’%></title>
+<script src="util/1.js"></script>
+<style>
+img {max-height:100px;max-width:100px;}
+</style>
+</head>
+<body>
+<form>
+<input type=text name=t value='<%‘字’%>'>
+<input type=submit value='搜'>
+</form>
+<%
+如果‘字’那么先
+	循环号先
+		如果‘号’大于‘视频量’那么跳出。
+		别名视频以视频‘号’。
+		别名标题以‘视频’标题。
+		赋予配图以如果存在‘视频’配图【主】那么‘‘视频’配图’。
+		赋予串以‘标题’。
+		如果‘配图’那么
+			赋予串以‘串’换行‘配图’。
+		如果存在‘视频’演员表【主】那么
+			赋予串以‘串’换行‘‘视频’演员表’。
+		赋予配、错以我的正则配、‘串’、(?i)‘字’。
+		如果‘错’那么先
+			‘错’。
+			结束。
+		了。
+		如果‘配’那么先%>
+<%如果‘配图’那么“<img src='‘配图’'>”%>
+<a href='show.zsp?i=<%‘号’%>' target=_blank><%‘标题’%></a> &nbsp; 
+<%
+	了。
+了。
+%>
+</body>
+</html>

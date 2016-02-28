@@ -1,0 +1,78 @@
+<%加载util/login.zsp、呔。
+赋予号以我的参、i。
+别名路径以视频‘号’。
+别名标题以‘路径’标题。
+%><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%‘标题’%></title>
+<script src="util/1.js"></script>
+<script>
+function sou__() {
+	var text = window.getSelection();
+	if(text == "") {
+		alert("先选择一段文字");
+		return;
+	}
+	window.open('sou.zsp?t=' + url__(text));
+}
+function play__(o, p) {
+	if(o)
+		o = '&o=' + o;
+	if(p)
+		p = '&p=' + p;
+	window.open('play.zsp?i=<%‘号’%>' + o + p, 'ctrlpanl');
+	if(p && z$)
+		z$("使主窗、最小化");
+}
+</script>
+<script src="<%‘文管服’%>/1.js"></script>
+</head>
+<body>
+<a href="javascript:window.close()">关闭<a>
+<span id=file_mgr_svr_list></span>
+<script>
+var s = "";
+for(var i = 0; i < file_mgr_svr_list_.length; i++) {
+	var o = file_mgr_svr_list_[i];
+	s += ' &nbsp; | &nbsp; <a href="' + (o[3] == "rm" ? o[1] : "brow.zsp") + '?i=<%‘号’%>">' + o[0] + '<a>';
+}
+e__("file_mgr_svr_list").innerHTML = s;
+</script>
+ &nbsp; | &nbsp; 
+<a href="javascript:location.reload()">刷新</a>
+<hr>
+<table>
+<tr><td>
+<a href="<%‘伪装头’‘号’‘伪装后’‘伪装尾’%>" style="white-space:nowrap;">在手机上放<a>
+</td><td></td></tr>
+<tr><td></td><td>
+<a href="javascript:play__('-fs')">在服务器上放<a> 
+</td></tr>
+</table>
+<%‘电脑旁播放器菜单’%>
+<hr>
+<pre><%‘标题’%> <%
+别名视频以路径。
+如果我的参、get_info等于y那么获取视频信息‘视频’。
+如果存在‘视频’长度【主】那么
+	“（‘‘视频’长度’ ‘‘视频’宽度’x‘‘视频’高度’）”
+否则
+	“<a href="?i=‘号’&get_info=y">视频信息<a>”。
+%>
+<%如果存在‘路径’演员表【主】那么‘‘路径’演员表’。%></pre>
+<a href="javascript:" onclick="sou__()">搜</a><br>
+<%如果存在‘路径’配图【主】那么“<img src="‘‘路径’配图’"><br>”。%>
+<a href="shot.zsp?i=<%‘号’%>" name=shot>配同名图<a><br>
+<%
+如果存在‘路径’截图集【主】那么先
+	我的遍历目录、‘‘路径’截图集’、含子目录、下代码
+		赋予文件以‘‘路径’截图集’/‘参数1’。
+		如果不是图片‘文件’那么再来。
+		如果存在‘路径’配图【主】并且‘‘路径’配图’等于‘文件’那么再来。
+		“<img src="‘文件’"><br>”。
+	上代码。
+了。
+%>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="util/zhugeshow.js"></script>
+<script src="util/1.js"></script>
+<style type="text/css">@import url(1.css);</style>
+<script>
+function for_tag__(f, all) {
+	var tags = e_cn__("tag");
+	for(var i = tags.length; --i >= 0;) {
+		var tag = tags[i];
+		if(tag.checked || all) {
+			f(tag);
+		}
+	}
+}
+function tag__(type) {
+	var s;
+	switch(type) {
+	case "a":
+		s = new Array();
+		for_tag__(function(tag) {
+			s.push(tag);
+		});
+		break;
+	default:
+		s = "";
+		for_tag__(function(tag) {
+			if(s != "")
+				s += " ";
+			s += '"' + tag.value + '"';
+		});
+		break;
+	}
+	return s;
+}
+
+var change_;
+function set_change__(change) {
+	change_ = change;
+}
+function change__(s) {
+	if(change_) {
+		change_(s);
+		return;
+	}
+}
+
+var mv_, set_mv_opener_;
+function set_mv__(mv, set_mv_opener) {
+	if(opener) {
+		opener.mv_ = mv;
+		opener.set_mv_opener_ = set_mv_opener;
+	}
+	mv_ = mv;
+	set_mv_opener_ = set_mv_opener;
+}
+function get_mv__(o) {
+	if(mv_) {
+		set_mv_opener_(o);
+		return mv_;
+	}
+	if(opener && opener.mv_) {
+		opener.set_mv_opener_(o);
+		return opener.mv_;
+	}
+	return null;
+}
+
+var tags_;
+function mv__() {
+	var s = tag__("a");
+	if(s.length == 0) {
+		msg__("选");
+		return;
+	}
+	tags_ = s;
+	mv = get_mv__(window);
+	if(mv) {
+		mv(s);
+		return;
+	}
+
+	var w = window.open();
+	login__(function(b) {
+		if(!b) {
+			w.close();
+			return;
+		}
+		w.location = "mv.zsp";
+	});
+}
+function mv2__() {
+	set_change__(function(s) {
+		set_change__(null);
+		focus__(window, s);
+	});
+	mv__();
+}
+function login__(f) {
+	ajax__("util/login.zsp?测", function(ret) {
+		if(ret != "") {
+			var pw = prompt(ret + "\n\n操作需要密码：");
+			if(pw != null) {
+				ajax__("util/login.zsp?pw=" + pw, function(ret) {
+					if(ret != "") {
+						alert("再来吧");
+						f(false);
+						return;
+					}
+					f(true);
+				});
+				return;
+			}
+			f(false);
+			return;
+		}
+		f(true);
+	});
+}
+function rm__() {
+	var s = tag__();
+	if(s == "") {
+		msg__("选");
+		return;
+	}
+	if(!confirm("删除 " + s + " 吗？"))
+		return;
+	login__(function(b) {
+		if(!b)
+			return;
+		ajax__("util/exec.zsp?" + url__("rm -r " + s), function(ret) {
+			if(ret != "") {
+				msg__("删除出错");
+				return;
+			}
+			rm_sel__();
+			change__("删除后返回");
+		});
+	});
+}
+function rm_sel__() {
+	for_tag__(function(tag) {
+		var n = tag.parentNode;
+		n.parentNode.removeChild(n);
+	});
+	zhugeshow__();
+}
+function sel_all__(b) {
+	for_tag__(function(tag) {
+		tag.checked = b;
+	}, true);
+}
+function sel_no__() {
+	for_tag__(function(tag) {
+		tag.checked = !tag.checked;
+	}, true);
+}
+</script>
+<%
+赋予列目录以我的参、ls。
+
+赋予图宽以‘图宽’。
+赋予框宽以1。
+赋予1宽以算术‘图宽’ + ‘框宽’ * 2。
+“<style>
+* {margin:0px;padding:0px;}
+img {
+	max-height:‘图宽’px;
+	max-width:‘图宽’px;
+	border:none;
+}
+.item {
+	float:left;
+	padding:7px;
+	display:inline-table;
+}
+.item-1 {
+	height:‘1宽’px;
+	width:‘1宽’px;
+	border:‘框宽’px dashed #000;
+	word-break:break-all;
+}
+.item-2 {
+	height:‘1宽’px;
+	width:‘1宽’px;
+	text-align:center;
+	vertical-align:middle;
+	display:table-cell;
+}
+#bar {
+	border:‘框宽’px dashed #000;
+	padding:7px;
+	position:fixed;
+	top:0px;
+	right:0px;
+	background-color:rgba(255, 255, 255, 0.65);
+}
+body {background:url(‘bg.png’);}
+</style>”。
+%>
+<script>
+function add_lnk__(tag, text, path, other) {
+	var d = new__("div");
+	d.className = "item";
+	d.innerHTML = 
+	(path ? '<input type=checkbox class=tag value="' + path + '" ' + other + '>' : '')+
+	'<a href="' + tag + '" target=_blank>' +
+	'<div class=item-1><div class=item-2>' + text + '</div></div></a>';
+	add__(d, e__("list"));
+}
+
+var img_max_ = 0;
+function add_img__(path, alt) {
+	img_max_++;
+	add_lnk__("show.zsp?" + img_max_,
+			<%如果存在nop【顶】那么alt
+			否则“'<img src="no.png" src2="' + path + '" title="' + alt + '">'”%>,
+			path, "id=i" + img_max_);
+}
+</script>
+</head>
+<body>
+<div id=bar>
+<a href="javascript:mv2__()">移动</a> 
+<a href="javascript:rm__()">删除</a><br>
+<a href="javascript:sel_all__(true)">全选</a> 
+<a href="javascript:sel_all__(false)">不</a> 
+<a href="javascript:sel_no__()">反选</a><br>
+<a href="javascript:location.reload()">刷新</a> 
+<a href="other.zsp" target=_blank>other</a> 
+</div>
+<div id=list>
+</div>
+<script>
+<%
+赋予背后以我的时间、2006-01-02-15-04-05.999999999。
+定义遍历用代码【无参】以下代码
+	显示始--‘背后名’--‘目录’换行。
+	下代码
+		我的等待、20。
+		别名名以参数1。
+		赋予路径以“上代码‘目录’下代码”/‘名’。
+		如果‘名’尾等于/那么先
+			({type:"dir", path:"‘路径’", text:"‘名’"})。
+			再来。
+		了。
+		如果是图片‘路径’那么先
+			赋予标题以我的文件、‘路径’、主名。
+			({type:"img", path:"‘路径’", alt:"‘标题’"})。
+			再来。
+		了。
+	上代码。
+上代码。
+如果‘列目录’那么先
+	定义加目录、目录以下代码
+		赋予背后名以‘背后’‘号’。
+		赋予‘背后名’【顶】以我的背后、32、遍历目录、‘目录’、含子目录、遍历用代码。
+	上代码。
+	如果‘列目录’等于all那么先
+		循环号先
+			别名目录以图片目录‘号’【顶】。
+			如果不存在目录那么跳出。
+			加目录‘目录’。
+		了。
+	了否则先
+		赋予号以1。
+		加目录‘列目录’。
+	了。
+了否则先
+	循环号先
+		别名目录以图片目录‘号’【顶】。
+		如果不存在目录那么跳出。
+		我的遍历目录、‘目录’、仅根文件、下代码
+			别名文件以参数1。
+			如果‘文件’尾等于 .html 那么
+				add_lnk__("‘文件’", "‘文件’");。
+		上代码。
+	了。
+	add_lnk__("?ls=all", "所有");。
+	循环号先
+		别名目录以图片目录‘号’【顶】。
+		如果不存在目录那么跳出。
+		赋予背后名以‘背后’‘号’。
+		赋予‘背后名’【顶】以我的背后、32、遍历目录、‘目录’、含子目录、返回目录、仅根文件、遍历用代码。
+	了。
+了。
+加载util/int.zsp、下原样
+switch(o.type) {
+case "dir":
+	add_lnk__("?ls=" + o.path, o.text, o.path, "");
+	break;
+case "img":
+	add_img__(o.path, o.alt);
+	zhugeshow__();
+	break;
+}
+上原样、200。
+%>
+</script>
+</body>
+</html>

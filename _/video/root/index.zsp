@@ -1,0 +1,163 @@
+<%加载util/login.zsp%><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+* {margin:0; padding:0;}
+.item {
+	float:left;
+	padding:1px;
+	display:inline-table;
+}
+.title1 {font-size:11px;word-break:break-all;}
+.title2 {/*font-size:24px;*/}
+<%
+赋予框宽以1。
+赋予1宽以算术‘图宽’+‘框宽’*2。
+“
+img {
+	max-height:‘图宽’px;
+	max-width:‘图宽’px;
+	border:none;
+}
+.item-1 {
+	height:‘1宽’px;
+	width:‘1宽’px;
+	border:‘框宽’px dashed #000;
+	word-break:break-all;
+}
+.item-2 {
+	height:‘1宽’px;
+	width:‘1宽’px;
+	text-align:center;
+	vertical-align:middle;
+	display:table-cell;
+}
+”。
+%>
+</style>
+<script src="util/zhugeshow.js"></script>
+<script src="util/1.js"></script>
+<title>首页</title>
+</head>
+<body>
+<div id=list></div>
+<script>
+function add_lnk__(tag, text, att) {
+	if(!att) att = "";
+	var d = new__("div");
+	d.className = "item";
+	d.innerHTML = 
+	'<a href="' + tag + '" ' + att + '>' +
+	'<div class=item-1><div class=item-2>' + text + '</div></div></a>';
+	add__(d, e__("list"));
+}
+add_lnk__("rand.zsp", "随便一个", "target=_blank");
+add_lnk__("sou.zsp", "搜", "target=_blank");
+add_lnk__("javascript:location.reload()", "刷新");
+<%
+赋予视频量【顶】以0。
+赋予背后以背后。
+循环‘目录数目’号先
+	别名目录以目录‘号’【顶】。
+	显示‘目录’换行。
+	如果我的文件、‘目录’、在否则再来。
+	赋予背后名以‘背后’‘号’。
+	如果存在‘背后名’【顶】那么再来。
+	显示始--‘背后名’换行。
+	赋予‘背后名’【顶】以我的背后、32、遍历目录、‘目录’、含子目录、下代码
+		别名名以参数1。
+		如果‘名’尾等于.m3u那么再来。
+		如果‘名’尾等于.sub那么再来。
+		赋予目录以“上代码‘目录’下代码”。
+		赋予路径以‘目录’/‘名’。
+		赋予果、错以我的重定向输出、“file "‘路径’"”。
+		如果‘错’那么再来。
+		赋予频果以我的正则配、‘果’、“RealMedia file”、“ISO Media”、“Flash Video”、
+			“Matroska data”、“RIFF ”、“Microsoft ASF”、“MPEG sequence”、“Ogg data”、
+			“Audio file”。
+		如果不‘频果’那么先
+			赋予知果以我的正则配、‘果’、“image data”、“UTF-8 Unicode text”。
+			如果不‘知果’那么显示‘果’。
+			再来。
+		了。
+		赋予子目录以我的文件、‘名’、目录。
+		我的正则迭、‘名’、([^.]+)、下代码
+			赋予主干【上】以‘目录’/‘参数1’。
+			跳出。
+		上代码。
+		赋予标题以我的省略、‘名’。
+
+		赋予缩略图以。
+		循环1外环先
+			我的迭代、下代码
+				别名前以参数1。
+				我的迭代、下代码
+					别名后以参数1。
+					赋予路径以‘前’‘后’。
+					如果不我的文件、‘路径’、在那么
+						赋予路径以‘前’先我的大写、‘后’了。
+					（显示‘路径’换行。）
+					如果我的文件、‘路径’、在那么先
+						赋予缩略图【上】【上】以‘路径’。
+						跳出外环。
+					了。
+				上代码、.png、.jpeg、.jpg。
+			上代码、
+			‘主干’、
+			‘家’/.cache/movbrow_zs/‘标题’。
+		了。
+
+		赋予目录2以我的目录名、‘路径’。
+		赋予zs以‘主干’.zs-note。
+		如果我的文件、‘zs’、在那么加载‘zs’。
+
+		赋予视频量【顶】以算术‘视频量’+1。
+		赋予视频‘视频量’【顶】以‘路径’。
+		赋予‘路径’标题【主】以‘标题’。
+		赋予‘路径’主干【主】以‘主干’。
+		({type:"vid", tag:"show.zsp?i=‘视频量’",
+		has_img:先如果‘缩略图’那么true否则false了,
+		text:先
+			如果‘缩略图’那么先
+				赋予宽、高以。
+				赋予果、错以我的重定向输出、“identify "‘缩略图’"”。
+				如果不‘错’那么先
+					我的正则迭、‘果’、“(\d+) ?x ?(\d+)”、下代码
+						赋予宽【上】以‘参数1’。
+						赋予高【上】以‘参数2’。
+					上代码。
+				了。
+				赋予‘路径’配图【主】以‘缩略图’。
+				“"<img src2='‘缩略图’' src2h='‘图宽’'”
+				先循环1先
+					如果算术‘宽’/‘高’、4小于等于1.0067并且大于等于0.8889那么先
+						“ title='‘标题’'”。
+						跳出。
+					了。
+					如果‘宽’小于‘高’那么“ align=left”否则><br。
+					“><span class=title1>‘标题’</span”。
+				了了>"。
+			了否则
+				“"<span class=title2>‘标题’</span>"”。
+		了})。
+	上代码。
+了。
+加载util/int.zsp、下原样
+switch(o.type) {
+case "vid":
+	add_lnk__(o.tag, o.text, "target=_blank");
+	if(o.has_img)
+		zhugeshow__();
+	break;
+case "x":
+	if(int_i_ >= int_max_) {
+		add_lnk__("util/exec.zsp?c=bye", "关服务器");
+		add_lnk__("util/exec.zsp?sudo -n poweroff", "关机");
+	}
+	break;
+}
+上原样。
+%>
+</script>
+</body>
+</html>

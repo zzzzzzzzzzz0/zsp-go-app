@@ -1,0 +1,144 @@
+<%加载util/login.zsp、呔。
+定义让mplayer以下代码
+	赋予命令以‘参数1’换行。
+	显示‘命令’。
+	我的命令被动者、‘命令’、‘权柄’。
+上代码。
+
+赋予令以我的参、c。
+如果‘令’等于c那么先
+	如果存在权柄【顶】那么
+		让mplayer先我的参、s了。
+	退出。
+了。
+%><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<%
+定义运行、命令以下代码
+	显示‘命令’换行。
+	赋予错误码、错、pid【上】以执行‘命令’。
+	显示‘错误码’-‘错’-‘pid’换行。
+	如果‘错误码’那么先
+		“err ‘错误码’: ‘错’”。
+		结束。
+	了。
+上代码。
+
+定义关闭mplayer以下代码
+	如果存在权柄【顶】那么先
+		让mplayer quit。
+		删除权柄【顶】。
+		删除pid【顶】。
+		退出。
+	了。
+	如果存在pid【顶】那么先
+		赋予命令以“kill -9 ‘pid’”。
+		删除pid【顶】。
+		运行‘命令’。
+	了。
+上代码。
+
+赋予关闭以<script>
+setTimeout(function() {window.opener = null; window.open("", "_self"); window.close();}, 500);
+</script>。
+
+如果‘令’等于k那么先
+	关闭mplayer。
+	‘关闭’。
+	退出。
+了。
+
+赋予号以我的参、i。
+别名路径以视频‘号’。
+
+赋予外以我的参、p。
+如果存在‘外’播放器【顶】那么先
+	解释‘‘外’播放器’。
+	‘关闭’。
+	退出。
+了。
+
+如果不存在权柄【顶】那么先
+	赋予权柄【顶】、pid以我的启动被动者、下代码
+		别名行以参数1。
+		（显示‘行’换行。）
+		如果‘行’头等于“Exiting... ”那么先
+			删除权柄【顶】。
+			删除pid【顶】。
+		了。
+	上代码、下代码
+		显示“X       ”‘参数1’换行。
+	上代码、mplayer、-slave、-ontop、-quiet、-subcp、UTF-8、‘路径’。
+	赋予选项以我的参、o。
+	我的正则迭、‘选项’、-fs、下代码
+		让mplayer“vo_fullscreen 1”。
+	上代码。
+	我的正则迭、‘选项’、“-volume (\d+)”、下代码
+		让mplayer“volume ‘参数1’ 1”。
+	上代码。
+	赋予pid【顶】以算术1+‘pid’。
+了。
+%>
+<title>控制面板</title>
+<style>
+table {width:100%; height:100%;}
+td {height:20%; text-align:center;}
+td.btn {width:20%;}
+</style>
+<script src="util/1.js"></script>
+<script>
+function c__(s) {
+	ajax__("?c=c&s=" + s);
+}
+</script>
+<table border=1>
+<%
+赋予号以0。
+定义加钮以下代码
+	赋予号【上】以算术‘号’+1。
+	如果‘号’等于1那么<tr>。
+	“<td class=btn>”先如果‘参数数目’大于等于2那么
+		“<a href="”先如果存在参数3那么‘参数2’否则javascript:c__('‘参数2’')了">‘参数1’</a>
+	了</td>。
+	如果‘号’等于5那么先
+		</tr>。
+		赋予号【上】以0。
+	了
+上代码。
+
+加钮音量减10%、“volume -10”。
+加钮音量加10%、“volume +10”。
+加钮切换音轨、switch_audio。
+加钮。
+加钮关闭、?c=k、。
+
+加钮速度减半、“speed_mult 0.5”。
+加钮速度增倍、“speed_mult 2”。
+加钮原速播放、“speed_set 1”。
+加钮暂停、pause。
+加钮。
+
+加钮。
+加钮。
+加钮。
+加钮后退10分钟、“seek -600”。
+加钮前跳10分钟、“seek +600”。
+
+加钮。
+加钮。
+加钮。
+加钮后退1分钟、“seek -60”。
+加钮前跳1分钟、“seek +60”。
+
+加钮。
+加钮。
+加钮。
+加钮后退10秒、“seek -10”。
+加钮前跳10秒、“seek +10”。
+%>
+</table>
+</body>
+</html>

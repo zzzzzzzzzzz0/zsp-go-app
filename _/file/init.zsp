@@ -1,0 +1,5 @@
+#!bin/zsp -a :4006 -r root -i index.zsp --。
+<%
+我的加根路径、/。
+加载util.zs。
+%>

@@ -1,0 +1,33 @@
+<%
+如果不存在文管【顶】那么先
+	赋予桌面以我的环境变量、DESKTOP_SESSION。
+	定义得程序、名、参以下代码
+		如果不存在参那么赋予参以。
+		如果我的文件、/usr/bin/‘名’、在那么先
+			“‘名’ ‘参’”。
+			跳出。
+		了。
+	上代码。
+	赋予文管【顶】以先循环1先
+		（如果‘桌面’等于xfce那么得程序 thunar。
+		如果‘桌面’等于openbox那么先
+			得程序 pcmanfm。
+			得程序 rox-filer。
+		了。）
+		“nautilus --no-desktop --browser”
+	了了。
+	显示“‘桌面’ ‘文管’”换行。
+了。
+赋予以执行“‘文管’ ”"先我的参、f了"。
+%>
+<script>
+var c = "<%我的参、c%>";
+switch(c) {
+case "x":
+	window.close();
+	break;
+default:
+	history.go(-1);
+	break;
+}
+</script>

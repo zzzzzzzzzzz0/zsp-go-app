@@ -1,0 +1,124 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="util/1.js"></script>
+<script>
+var opener_;
+function set_opener__(o) {
+	opener_ = o;
+	opener_.set_mv__(function(s) {
+		focus__(window, "进入移动");
+		tags_html__(s);
+	}, set_opener__);
+}
+
+function tags_html__(a) {
+	var s = "";
+	for(var k in a)
+		s += a[k].value + " ";
+	e__("tags").innerHTML = s;
+}
+
+var mv_ = null;
+function submit__(f) {
+	var dir = f.dir.value;
+	if(!dir) {
+		var dirs = e_n__("dir");
+		for(var i = 0; i < dirs.length; i++) {
+			var d = dirs[i];
+			if(d.checked) {
+				dir = d.value;
+				break;
+			}
+		}
+	}
+	if(!dir) {
+		msg__("选");
+		return false;
+	}
+	/*var tags = e__("tags").innerHTML;
+	if(tags != "") {
+		exec__(mv_ + " -n " + tags + ' "' + dir + '"', );
+	}*/
+	var len = opener_.tags_.length, ok = len;
+	for(var i = 0; i < len; i++) {
+		var tag = opener_.tags_[i];
+		var s = tag.value;
+		ajax__("util/exec.zsp?c=" + mv_ + "&s=" + url__(s) + "&d=" + url__(dir), function(ret, tag) {
+			var o = eval(ret);
+			if(o.err != "") {
+				msg__(mv_ + " " + o.err + ": " + o.err2 + " 出错");
+				return;
+			}
+			tag.value = o.tag;
+			--ok;
+			if(ok == 0) {
+				e__("tags").innerHTML = "";
+				opener_.change__("移动后返回");
+				if(e__("rm_sel").checked)
+					opener_.rm_sel__();
+				else
+					opener_.sel_all__(false);
+			}
+		}, tag);
+	}
+	return false;
+}
+set_opener__(opener);
+window.onunload = function() {
+	opener_.set_mv__(null, null);
+};
+</script>
+<style>
+#dirs {
+	word-break:break-all;
+	border:1px dashed #000;
+	top:0;
+	position:absolute;
+	right:0;
+	width:50%;
+}
+#tag {
+	word-break:break-all;
+	border:1px dashed #000;
+	top:0;
+	position:fixed;
+	left:0;
+	width:49%;
+}
+</style>
+</head>
+<body>
+<form onsubmit="return submit__(this)">
+<div id=tag>
+<!--checked-->
+<input type=checkbox  id=rm_sel>移除所选<br>
+移动<input type=submit value="mv" onmouseover="mv_=this.value"> |
+复制<input type=submit value="cp" onmouseover="mv_=this.value"> 
+<span id=tags></span> 
+到：
+</div>
+<div id=dirs>
+<a href="javascript:location.reload()">刷新</a> 
+<%
+定义加钮、路径以下代码
+	“<br><input type=radio name=dir value="‘路径’">‘路径’”。
+上代码。
+循环号先
+	赋予图片目录以我的参、d‘号’。
+	如果不‘图片目录’那么跳出。
+	加钮‘图片目录’。
+	我的遍历目录、‘图片目录’、含子目录、返回目录、仅目录、下代码
+		加钮‘图片目录’/‘参数1’
+	上代码。
+了。
+加载‘参数0’.setting。
+%>
+</div>
+</form>
+<script>
+focus__(window, "欢迎移动");
+tags_html__(opener_.tags_);
+</script>
+</body>
+</html>

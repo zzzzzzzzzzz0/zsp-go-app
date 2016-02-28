@@ -1,0 +1,137 @@
+<%
+赋予名以我的参、n。
+赋予号以我的参、i。
+如果‘名’并且‘号’并且不‘名’尾等于/那么先
+	我的转向、‘目录‘号’’/‘名’、f。
+	结束。
+了。
+%><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+* {margin:0; padding:0;}
+.item {
+	float:left;
+	padding:1px;
+	display:inline-table;
+}
+.title1 {font-size:11px;word-break:break-all;}
+<%
+赋予图宽以150。
+赋予框宽以1。
+赋予1宽以算术‘图宽’+‘框宽’*2。
+赋予1高以算术‘1宽’+14。
+“
+img {
+	max-height:‘图宽’px;
+	max-width:‘图宽’px;
+	border:none;
+}
+.item-1 {
+	height:‘1高’px;
+	width:‘1宽’px;
+	border:‘框宽’px dashed #000;
+	word-break:break-all;
+	text-align:center;
+	vertical-align:middle;
+	display:table-cell;
+}
+.item-2 {
+	width:‘1宽’px;
+}
+”。
+%>
+</style>
+<script src="util/zhugeshow.js"></script>
+<script src="util/1.js"></script>
+</head>
+<body>
+<div id=list></div>
+<script>
+function add_lnk__(tag, text, text2, att) {
+	if(!text2) text2 = "";
+	if(!att) att = "";
+	var d = new__("div");
+	d.className = "item";
+	d.innerHTML = 
+	'<a href="' + tag + '" ' + att + '>' +
+	'<div class=item-1><div class=item-2>' + text + '</div>' + text2 + '</div></a>';
+	add__(d, e__("list"));
+}
+add_lnk__("javascript:location.reload()", "刷新");
+<%
+定义遍历目录、子目录以下代码
+	如果不存在子目录那么赋予子目录以。
+	赋予目录以‘目录’‘子目录’。
+	显示‘目录’换行。
+	如果不我的文件、‘目录’、在那么再来。
+	赋予背后名以‘背后’‘号’。
+	显示始--‘背后名’换行。
+	赋予‘背后名’【顶】以我的背后、32、“遍历目录”、‘目录’、含子目录、返回目录、仅根文件、下代码
+		别名名以参数1。
+		赋予号以上代码‘号’下代码。
+		赋予目录以“上代码‘目录’下代码”。
+		赋予路径以‘目录’/‘名’。
+
+		赋予果、错以我的重定向输出、“file "‘路径’"”。
+		如果‘错’那么再来。
+		赋予配以我的正则配、‘果’、“PDF document”、“HTML document”、
+			“UTF-8 Unicode text”、“UTF-8 Unicode \(with BOM\) text”、
+			“ISO-8859 text”、“Non-ISO extended-ASCII text”、“Little-endian UTF-16 Unicode text”、
+			“ directory”。
+		如果不‘配’那么先
+			显示‘果’。
+			再来。
+		了。
+		赋予标题以我的省略、‘名’。
+
+		赋予缩略图以。
+		如果不‘名’尾等于/那么先
+			我的正则迭、‘名’、([^.]+)、下代码
+				赋予前【上】以‘目录’/‘参数1’。
+				跳出。
+			上代码。
+			我的迭代、下代码
+				别名后以参数1。
+				赋予路径以‘前’‘后’。
+				如果不我的文件、‘路径’、在那么
+					赋予路径以‘前’先我的大写、‘后’了。
+				如果我的文件、‘路径’、在那么先
+					赋予缩略图【上】以‘路径’。
+					跳出。
+				了。
+			上代码、.png、.jpeg、.jpg。
+		了。
+
+		({type:"item", tag:"?n=。如果‘子目录’那么我的子串、‘子目录’、1。‘名’&i=‘号’",
+		has_img:先如果‘缩略图’那么true否则false了,
+		text:"先如果‘缩略图’那么
+			“<img src2='‘缩略图’' src2h='‘图宽’'>", text2:"<div class=title1”
+		否则	
+			“<div class=title2”
+		了>‘标题’</div>"})。
+	上代码。
+上代码。
+赋予背后以我的时间、2006-01-02-15-04-05.999999999。
+如果‘名’并且‘号’那么先
+	别名目录以目录‘号’。
+	遍历目录/‘名’。
+了否则先
+	循环‘目录数目’号先
+		别名目录以目录‘号’。
+		遍历目录。
+	了。
+了。
+加载util/int.zsp、下原样
+switch(o.type) {
+case "item":
+	add_lnk__(o.tag, o.text, o.text2, "target=_blank");
+	if(o.has_img)
+		zhugeshow__();
+	break;
+}
+上原样。
+%>
+</script>
+</body>
+</html>
