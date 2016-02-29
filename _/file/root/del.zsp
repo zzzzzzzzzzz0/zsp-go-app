@@ -36,7 +36,7 @@
 		赋予命令【上】以‘命令’“rmdir -p --ignore-fail-on-non-empty "‘参数1’"”换行。
 	上代码。%>
 <pre><%‘命令’。
-（执行‘命令’。）%></pre>
+执行‘命令’。%></pre>
 <a href="javascript:window.close()">关闭<a>
 <%
 了否则先
