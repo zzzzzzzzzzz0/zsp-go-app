@@ -57,6 +57,9 @@ function z__() {
 	auto_i_ = 0;
 	transform__();
 	title__();
+	title_i__();
+	title_r__();
+	title_old_key__();
 }
 function z2__() {
 	img_.src = img1_.src;
@@ -76,17 +79,25 @@ function z2__() {
 	}
 }
 function title__() {
-	e__("title").innerHTML =
-		old_key_ + " " +
-		r_ + " " +
-		i_ + ".." + max__() + " " +
-		//img1_.width + "x" + img1_.height + " " +
-		//img_.width + "x" + img_.height + " " +
-		src_;
+	htm__("title", src_);
+}
+function title_i__() {
+	htm__("title_i", i_ + ".." + max__());
+}
+function title_old_key__() {
+	htm__("title_old_key", old_key_);
+}
+function title_r__() {
+	htm__("title_r", r_);
 }
 function resize__() {
 	z2__();
-	e__("bar").style.fontSize = (document.body.clientHeight / 44) + "px";
+	var i = document.body.clientHeight / 44, min = 7, max = 13;
+	if(i < min)
+		i = min;
+	else if(i > max)
+		i = max;
+	e__("bar").style.fontSize = i + "px";
 }
 var r_, s_, sx_, sy_, fx_;
 function transform__() {
@@ -111,10 +122,10 @@ function ss__() {
 	s_ -= 0.01; w_h_s__();
 }
 function r__() {
-	r_ += 15; transform__(); title__();
+	r_ += 15; transform__(); title_r__();
 }
 function rr__() {
-	r_ -= 15; transform__(); title__();
+	r_ -= 15; transform__(); title_r__();
 }
 function f__() {
 	fx_ = fx_ == 1 ? -1 : 1; transform__();
@@ -143,7 +154,7 @@ function auto_pause__(b) {
 	if(!auto_)
 		return;
 	auto_pause_ = b;
-	e__("auto").innerHTML = b ? "?" : "*";
+	htm__("auto", b ? "?" : "*");
 }
 function auto__() {
 	if(!auto_) {
@@ -154,7 +165,8 @@ function auto__() {
 		clearInterval(auto_);
 		auto_ = null;
 	}
-	e__("auto").innerHTML = auto_ ? "*" : "";
+	htm__("auto", auto_ ? "*" : "");
+	htm__("auto2", auto_ ? "y" : "");
 }
 var auto_i_;
 function auto_2__() {
@@ -163,26 +175,39 @@ function auto_2__() {
 	var max = 30;
 	if(++auto_i_ >= max)
 		auto_i_ = 0;
-	e__("auto").innerHTML = max - auto_i_;
+	htm__("auto", max - auto_i_);
 	if(auto_i_ != 0)
 		return;
+	switch(old_key_) {
+	case "B":
+		if(i_ == 1)
+			i_ = max__() + 1;
+		break;
+	case "N":
+		if(i_ == max__())
+			i_ = 0;
+		break;
+	}
 	old_key__();
 }
 var old_key_ = "N";
 function old_key__(nor) {
+	if(!nor) {
+		switch(old_key_) {
+		case "R":
+			rand__();
+			return;
+		case "E":
+			end__();
+			return;
+		}
+	}
 	switch(old_key_) {
 	case "B":
 		back__();
-		break;
-	case "R":
-		if(!nor) {
-			rand__();
-			break;
-		}
-	default:
-		next__();
-		break;
+		return;
 	}
+	next__();
 }
 function set_change__(f) {
 	auto_pause__(true);
@@ -239,11 +264,11 @@ function kao__() {
 	if(s.left == "0px") {
 		s.right = "0px";
 		s.left = null;
-		e__("kao").innerHTML = "左";
+		htm__("kao", "左");
 	} else {
 		s.left = "0px";
 		s.right = null;
-		e__("kao").innerHTML = "右";
+		htm__("kao", "右");
 	}
 }
 function bar_hide__() {
@@ -268,6 +293,7 @@ window.document.onkeydown = function(evt) {
 	case "R":
 	case "E":
 		old_key_ = key;
+		title_old_key__();
 		break;
 	case " ":
 		key = old_key_;
@@ -322,6 +348,12 @@ window.document.onkeydown = function(evt) {
 	case "M":
 		mv__();
 		break;
+	case "U":
+		auto__();
+		break;
+	/*default:
+		alert(key);
+		break;*/
 	}
 };
 </script>
@@ -337,7 +369,7 @@ window.document.onkeydown = function(evt) {
 加next__()、“下一页N”。
 加end__()、“最后页E”。
 加rand__()、“随机页R”。
-加auto__()、“<span id=auto></span> 自动”。
+加auto__()、“<span id=auto2></span>自动U”。
 “<!--失去焦点时暂停--><input type=checkbox checked id=auto_onblur>焦”。
 加reload__()、刷新。
 加s1__()、“1 : 1”。
@@ -351,6 +383,7 @@ window.document.onkeydown = function(evt) {
 加fs__()、“全屏F”。
 加kao__()、“靠<span id=kao>右</span>”。
 加bar_hide__()、隐藏H。
+（D、M）
 “<span id=file_mgr_svr_list></span>”。
 “空格 再”。
 加location.reload()、刷新。
@@ -373,13 +406,19 @@ for(var i = 0; i < file_mgr_svr_list_.length; i++) {
 	}
 	s += '<%加' + o[3] + '__()、' + o[0] + '%>';
 }
-e__("file_mgr_svr_list").innerHTML = s;
+htm__("file_mgr_svr_list", s);
 </script>
 <%
 删除“加”。
 %>
 </div>
-<div id=bar2><div id=title></div></div>
+<div id=bar2>
+<span id=title_old_key></span>
+<span id=title_r></span>
+<span id=auto></span>
+<span id=title_i></span>
+<span id=title></span>
+</div>
 <div id=img-1><img id=img></div>
 <script>
 var src_;
@@ -397,6 +436,7 @@ window.onfocus = function() {
 };
 window.onresize = resize__;
 z__();
+resize__();
 </script>
 </body>
 </html>

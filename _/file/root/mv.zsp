@@ -16,7 +16,7 @@ function tags_html__(a) {
 	var s = "";
 	for(var k in a)
 		s += a[k].value + " ";
-	e__("tags").innerHTML = s;
+	htm__("tags", s);
 }
 
 var mv_ = null;
@@ -53,7 +53,7 @@ function submit__(f) {
 			tag.value = o.tag;
 			--ok;
 			if(ok == 0) {
-				e__("tags").innerHTML = "";
+				htm__("tags", "");
 				opener_.change__("移动后返回");
 				if(e__("rm_sel").checked)
 					opener_.rm_sel__();

@@ -29,6 +29,30 @@ function log__(s) {
 	console.log(s);
 }
 
+function id__(id) {
+	switch(typeof(id)) {
+	case "string": case "number":
+		return e__(id);
+	}
+	return id;
+}
+function htm__(id, val, op) {
+	var e = id__(id);
+	if(val == undefined)
+		return e.innerHTML;
+	switch(op) {
+	case undefined:
+		e.innerHTML = val;
+		return;
+	case true:
+		e.innerHTML += val;
+		return;
+	case "top":
+		e.innerHTML = val + e.innerHTML;
+		return;
+	}
+}
+
 function focus__(w, s) {
 	log__(w.location.href);
 

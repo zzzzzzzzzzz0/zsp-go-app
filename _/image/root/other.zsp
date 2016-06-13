@@ -5,7 +5,7 @@
 <script>
 function z__(s) {
 	ajax__("util/exec.zsp?" + s, function(ret) {
-		e__("log").innerHTML += s + " " + ret + "<br>";
+		htm__("log", s + " " + ret + "<br>", true);
 	});
 }
 </script>

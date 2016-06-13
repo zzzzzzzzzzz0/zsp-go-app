@@ -2,7 +2,17 @@
 赋予名以我的参、n。
 赋予号以我的参、i。
 如果‘名’并且‘号’并且不‘名’尾等于/那么先
-	我的转向、‘目录‘号’’/‘名’、f。
+	赋予路径以‘目录‘号’’/‘名’。
+	赋予果、错以我的重定向输出、“file "‘路径’"”。
+	如果不‘错’并且不我的正则配、‘果’、PDF那么先
+		赋予配以我的正则配、‘果’、HTML。
+		赋予配2以我的正则配、‘果’、UTF-8。
+		显示h‘配’u‘配2’--‘果’。
+		我的应答头、Content-type、
+		text/先如果‘配’那么html否则plain了;
+		charset=先如果‘配2’那么utf-8否则gb18030了。
+	了。
+	我的转向、‘路径’、f。
 	结束。
 了。
 %><html>
@@ -15,12 +25,15 @@
 	padding:1px;
 	display:inline-table;
 }
-.title1 {font-size:11px;word-break:break-all;}
+.title2 {word-break:break-all;}
+.bar {font-size:11px;}
 <%
 赋予图宽以150。
 赋予框宽以1。
 赋予1宽以算术‘图宽’+‘框宽’*2。
-赋予1高以算术‘1宽’+14。
+赋予标题1高以14。
+赋予1高以算术‘1宽’+‘标题1高’。
+赋予3高以算术‘1宽’+‘标题1高’+30。
 “
 img {
 	max-height:‘图宽’px;
@@ -36,8 +49,14 @@ img {
 	vertical-align:middle;
 	display:table-cell;
 }
-.item-2 {
+.item-3 {height:‘3高’px;width:‘1宽’px;}
+.title1 {
+	height:‘标题1高’px;
 	width:‘1宽’px;
+	font-size:11px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 ”。
 %>
@@ -46,19 +65,32 @@ img {
 <script src="util/1.js"></script>
 </head>
 <body>
+<base target=_blank>
 <div id=list></div>
+<script src="<%‘文管服’%>/1.js"></script>
 <script>
-function add_lnk__(tag, text, text2, att) {
+function add_lnk__(tag, text, text2, text3, att) {
+	if(text3 == undefined || text3 == null) {
+		text3 = "";
+	} else {
+		for(var i = 0; i < file_mgr_svr_list_.length; i++) {
+			var o = file_mgr_svr_list_[i];
+			text3 += ' <a href="g.zsp' + tag + '&t=' + o[1] + '&o=' + o[3] + '" ' + o[2] + '>' + o[0].substring(0, 1) + '<a>';
+		}
+	}
+
 	if(!text2) text2 = "";
 	if(!att) att = "";
+
 	var d = new__("div");
 	d.className = "item";
-	d.innerHTML = 
-	'<a href="' + tag + '" ' + att + '>' +
-	'<div class=item-1><div class=item-2>' + text + '</div>' + text2 + '</div></a>';
+	htm__(d, 
+	'<div class=item-3><a href="' + tag + '" ' + att + '>' +
+	'<div class=item-1><div class=item-2>' +
+	text + '</div>' + text2 + '</div></a><div class=bar>' + text3 + '</div></div>');
 	add__(d, e__("list"));
 }
-add_lnk__("javascript:location.reload()", "刷新");
+add_lnk__("javascript:location.reload()", "刷新", null, null, "target=_self");
 <%
 定义遍历目录、子目录以下代码
 	如果不存在子目录那么赋予子目录以。
@@ -103,13 +135,16 @@ add_lnk__("javascript:location.reload()", "刷新");
 			上代码、.png、.jpeg、.jpg。
 		了。
 
-		({type:"item", tag:"?n=。如果‘子目录’那么我的子串、‘子目录’、1。‘名’&i=‘号’",
+		({type:"item",
+		tag:"?n=。如果‘子目录’那么我的子串、‘子目录’、1。‘名’&i=‘号’",
 		has_img:先如果‘缩略图’那么true否则false了,
 		text:"先如果‘缩略图’那么
-			“<img src2='‘缩略图’' src2h='‘图宽’'>", text2:"<div class=title1”
+			“<img src2='‘缩略图’' src2h='‘图宽’'>",
+			text2:"<div class=title1”
 		否则	
 			“<div class=title2”
-		了>‘标题’</div>"})。
+		了>‘标题’</div>",
+		text3:"先如果‘缩略图’那么“<a href='‘缩略图’'>图</a>”了"})。
 	上代码。
 上代码。
 赋予背后以我的时间、2006-01-02-15-04-05.999999999。
@@ -125,7 +160,7 @@ add_lnk__("javascript:location.reload()", "刷新");
 加载util/int.zsp、下原样
 switch(o.type) {
 case "item":
-	add_lnk__(o.tag, o.text, o.text2, "target=_blank");
+	add_lnk__(o.tag, o.text, o.text2, o.text3);
 	if(o.has_img)
 		zhugeshow__();
 	break;

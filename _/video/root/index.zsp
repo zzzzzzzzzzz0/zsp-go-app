@@ -8,11 +8,13 @@
 	padding:1px;
 	display:inline-table;
 }
-.title1 {font-size:11px;word-break:break-all;}
+.break {word-break:break-all; word-wrap:break-word; white-space:pre-wrap;}
+.title1 {font-size:11px;}
 .title2 {/*font-size:24px;*/}
 <%
 赋予框宽以1。
 赋予1宽以算术‘图宽’+‘框宽’*2。
+赋予1高以算术‘1宽’ + 20。
 “
 img {
 	max-height:‘图宽’px;
@@ -20,10 +22,8 @@ img {
 	border:none;
 }
 .item-1 {
-	height:‘1宽’px;
+	height:‘1高’px;
 	width:‘1宽’px;
-	border:‘框宽’px dashed #000;
-	word-break:break-all;
 }
 .item-2 {
 	height:‘1宽’px;
@@ -31,6 +31,7 @@ img {
 	text-align:center;
 	vertical-align:middle;
 	display:table-cell;
+	/*border:‘框宽’px dashed #000;*/
 }
 ”。
 %>
@@ -46,14 +47,15 @@ function add_lnk__(tag, text, att) {
 	if(!att) att = "";
 	var d = new__("div");
 	d.className = "item";
-	d.innerHTML = 
-	'<a href="' + tag + '" ' + att + '>' +
-	'<div class=item-1><div class=item-2>' + text + '</div></div></a>';
+	htm__(d,
+	'<div class=item-1><a href="' + tag + '" ' + att + '>' +
+	'<div class=item-2>' + text + '</div></a></div>');
 	add__(d, e__("list"));
 }
 add_lnk__("rand.zsp", "随便一个", "target=_blank");
 add_lnk__("sou.zsp", "搜", "target=_blank");
 add_lnk__("javascript:location.reload()", "刷新");
+add_lnk__("all.m3u", "全部 (m3u)", "target=_blank");
 <%
 赋予视频量【顶】以0。
 赋予背后以背后。
@@ -89,7 +91,7 @@ add_lnk__("javascript:location.reload()", "刷新");
 
 		赋予缩略图以。
 		循环1外环先
-			我的迭代、下代码
+			定义得缩略图以下代码
 				别名前以参数1。
 				我的迭代、下代码
 					别名后以参数1。
@@ -102,9 +104,10 @@ add_lnk__("javascript:location.reload()", "刷新");
 						跳出外环。
 					了。
 				上代码、.png、.jpeg、.jpg。
-			上代码、
-			‘主干’、
-			‘家’/.cache/movbrow_zs/‘标题’。
+			上代码。
+			得缩略图‘主干’。
+			如果存在配图缓存目录【顶】那么
+				得缩略图‘配图缓存目录’/‘标题’。
 		了。
 
 		赋予目录2以我的目录名、‘路径’。
@@ -134,11 +137,11 @@ add_lnk__("javascript:location.reload()", "刷新");
 						“ title='‘标题’'”。
 						跳出。
 					了。
-					如果‘宽’小于‘高’那么“ align=left”否则><br。
-					“><span class=title1>‘标题’</span”。
+					如果‘宽’小于‘高’那么“ align=left”>否则><br>。
+					“<span class='title1 break'>‘标题’</span”。
 				了了>"。
 			了否则
-				“"<span class=title2>‘标题’</span>"”。
+				“"<span class='title2 break'>‘标题’</span>"”。
 		了})。
 	上代码。
 了。
@@ -150,7 +153,7 @@ case "vid":
 		zhugeshow__();
 	break;
 case "x":
-	if(int_i_ >= int_max_) {
+	if(int_i_ > int_max_) {
 		add_lnk__("util/exec.zsp?c=bye", "关服务器");
 		add_lnk__("util/exec.zsp?sudo -n poweroff", "关机");
 	}

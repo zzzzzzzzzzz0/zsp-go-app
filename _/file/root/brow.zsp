@@ -18,16 +18,11 @@
 	了了。
 	显示“‘桌面’ ‘文管’”换行。
 了。
-赋予以执行“‘文管’ ”"先我的参、f了"。
-%>
-<script>
-var c = "<%我的参、c%>";
-switch(c) {
-case "x":
-	window.close();
-	break;
-default:
-	history.go(-1);
-	break;
-}
-</script>
+赋予以执行“‘文管’ ”"先我的参、f了"&。
+%><script><%
+赋予令以我的参、c。
+如果‘令’等于x那么
+	window.close()
+否则
+	history.go(-1)。
+%></script>

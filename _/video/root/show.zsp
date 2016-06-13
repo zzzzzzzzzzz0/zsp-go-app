@@ -37,7 +37,7 @@ for(var i = 0; i < file_mgr_svr_list_.length; i++) {
 	var o = file_mgr_svr_list_[i];
 	s += ' &nbsp; | &nbsp; <a href="' + (o[3] == "rm" ? o[1] : "brow.zsp") + '?i=<%‘号’%>">' + o[0] + '<a>';
 }
-e__("file_mgr_svr_list").innerHTML = s;
+htm__("file_mgr_svr_list", s);
 </script>
  &nbsp; | &nbsp; 
 <a href="javascript:location.reload()">刷新</a>
@@ -50,7 +50,7 @@ e__("file_mgr_svr_list").innerHTML = s;
 <a href="javascript:play__('-fs')">在服务器上放<a> 
 </td></tr>
 </table>
-<%‘电脑旁播放器菜单’%>
+<%（得电脑旁播放器菜单。）‘电脑旁播放器菜单’%>
 <hr>
 <pre><%‘标题’%> <%
 别名视频以路径。
@@ -62,9 +62,14 @@ e__("file_mgr_svr_list").innerHTML = s;
 %>
 <%如果存在‘路径’演员表【主】那么‘‘路径’演员表’。%></pre>
 <a href="javascript:" onclick="sou__()">搜</a><br>
-<%如果存在‘路径’配图【主】那么“<img src="‘‘路径’配图’"><br>”。%>
-<a href="shot.zsp?i=<%‘号’%>" name=shot>配同名图<a><br>
+<a name=shot></a>
+<%如果存在配图缓存目录【顶】那么
+	“<a href="shot.zsp?i=‘号’&cd=‘配图缓存目录’">配图<a> ”。%>
+<a href="shot.zsp?i=<%‘号’%>">配同名图<a><br>
 <%
+如果存在‘路径’配图【主】那么先
+	“<img src="‘‘路径’配图’”先如果我的参、re等于y那么?先我的时间、.999999999了了"><br>。
+了。
 如果存在‘路径’截图集【主】那么先
 	我的遍历目录、‘‘路径’截图集’、含子目录、下代码
 		赋予文件以‘‘路径’截图集’/‘参数1’。
