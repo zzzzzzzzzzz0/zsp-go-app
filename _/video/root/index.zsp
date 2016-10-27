@@ -52,7 +52,15 @@ function add_lnk__(tag, text, att) {
 	'<div class=item-2>' + text + '</div></a></div>');
 	add__(d, e__("list"));
 }
+function rand__(len) {
+	for(var i = 0; i < len; i++) {
+		setTimeout(function() {
+			window.open("rand.zsp");
+		}, i * /*110*/200);
+	}
+}
 add_lnk__("rand.zsp", "随便一个", "target=_blank");
+add_lnk__("javascript:rand__(10)", "随便几个");
 add_lnk__("sou.zsp", "搜", "target=_blank");
 add_lnk__("javascript:location.reload()", "刷新");
 add_lnk__("all.m3u", "全部 (m3u)", "target=_blank");
@@ -83,8 +91,8 @@ add_lnk__("all.m3u", "全部 (m3u)", "target=_blank");
 			再来。
 		了。
 		赋予子目录以我的文件、‘名’、目录。
-		我的正则迭、‘名’、([^.]+)、下代码
-			赋予主干【上】以‘目录’/‘参数1’。
+		我的正则迭、先我的文件、‘名’、名了、([^.]+)、下代码
+			赋予主干【上】以‘目录’/‘子目录’/‘参数1’。
 			跳出。
 		上代码。
 		赋予标题以我的省略、‘名’。
