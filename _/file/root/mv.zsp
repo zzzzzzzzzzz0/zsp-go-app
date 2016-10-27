@@ -64,6 +64,44 @@ function submit__(f) {
 	}
 	return false;
 }
+
+<%
+赋予-以“[-]”。
+赋予+以“[+]”。
+赋予--以“[#]”。
+赋予++以“[$]”。
+%>
+function zhe__(i, e) {
+	var t = htm__(e);
+	var t1, d2;
+	if(t == "<%‘-’%>") {
+		t1 = "<%‘+’%>";
+		d2 = "none";
+	} else {
+		t1 = "<%‘-’%>";
+		d2 = "inline";
+	}
+	var val = e__('r' + i).value, i3 = 0;
+	for(var i2 = i;; i2++, i3++) {
+		var val2 = e__('r' + i2).value;
+		if(val2.indexOf(val) != 0) break;
+		var ctl, ctl2 = e__("ctl_" + i2);
+		if(i2 == i) {
+			ctl = e;
+		} else {
+			//if(ctl2.checked) continue;
+			if(htm__(ctl2) == "<%‘++’%>") continue;
+			ctl = e__("ctl" + i2);
+		}
+		htm__(ctl, t1);
+		ctl2.style.display = d2;
+		e__("s" + i2).style.display = d2;
+		ctl.title = t1 == "<%‘+’%>" ? val2 : "";
+	}
+	if(t1 == "<%‘+’%>" && i3 > 1) {
+		htm__(e, t1 + ".." + i3);
+	}
+}
 set_opener__(opener);
 window.onunload = function() {
 	opener_.set_mv__(null, null);
@@ -86,6 +124,7 @@ window.onunload = function() {
 	left:0;
 	width:49%;
 }
+.ctl {cursor: pointer; /*white-space:nowrap;*/}
 </style>
 </head>
 <body>
@@ -101,8 +140,17 @@ window.onunload = function() {
 <div id=dirs>
 <a href="javascript:location.reload()">刷新</a> 
 <%
+赋予钮号【啊】以0。
 定义加钮、路径以下代码
-	“<br><input type=radio name=dir value="‘路径’">‘路径’”。
+	赋予钮号【啊】以算术‘钮号’+1。
+	“<span id=s‘钮号’><br>
+	<!--e__('ctl_'+‘钮号’).checked=true-->
+	<input type=radio name=dir value="‘路径’" id=r‘钮号’ onclick="htm__('ctl_'+‘钮号’,'‘++’')">
+	‘路径’ </span>
+	<span onclick="zhe__(‘钮号’,this)" id=ctl‘钮号’ class=ctl>‘-’</span>
+	<!--input type=checkbox id=ctl_‘钮号’-->
+	<span onclick="htm__(this,htm__(this)=='‘--’'?'‘++’':'‘--’')" id=ctl_‘钮号’ class=ctl>‘--’</span>
+	”。
 上代码。
 循环号先
 	赋予图片目录以我的参、d‘号’。
