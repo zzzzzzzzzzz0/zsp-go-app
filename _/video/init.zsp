@@ -1,4 +1,4 @@
-#!/usr/lib/zhscript-go/zsp -a :4003 -r root -i index.zsp --。
+#!bin/zsp -zsp-addr :4003 -zsp-root root -zsp-index index.zsp --。
 <%
 赋予图宽【顶】以150。（手机合适的值）
 赋予伪装以1。
@@ -33,7 +33,7 @@
 	赋予无登入【顶】以。
 了。
 解释下代码
-	加目录先我的文件、‘根’/../media、净了。
+	加目录先我的文件、先我的文件、‘根’、绝对了/../media、净了。
 上代码。
 
 循环1先
