@@ -1,4 +1,4 @@
-#!bin/zsp -a :4006 -r root -i index.zsp --。
+#!bin/zsp -zsp-addr :4006 -zsp-root root -zsp-index index.zsp --。
 <%
 我的加根路径、/。
 加载util.zs。

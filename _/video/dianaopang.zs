@@ -17,8 +17,8 @@ vlc/简/--qt-minimal-view
 vlc/无声/--no-audio
 
 mpv//
+mpv/音量25/-volume 25
 mpv/无声/--mute
-//
 
 parole//
 parole/无声/-m

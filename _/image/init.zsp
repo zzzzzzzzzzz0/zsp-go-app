@@ -1,4 +1,4 @@
-#!bin/zsp -a :4001 -r root -i index.zsp --。
+#!bin/zsp -zsp-addr :4001 -zsp-root root -zsp-index index.zsp --。
 <%
 赋予调试【顶】以。
 赋予图宽【顶】以160。

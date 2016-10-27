@@ -1,4 +1,4 @@
-#!bin/zsp -a :4005 -r root -i index.zsp --。
+#!bin/zsp -zsp-addr :4005 -zsp-root root -zsp-index index.zsp --。
 <%
 赋予号【此】以0。
 
