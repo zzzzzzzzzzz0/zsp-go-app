@@ -39,9 +39,9 @@ var change_;
 function set_change__(change) {
 	change_ = change;
 }
-function change__(s) {
+function change__(s, change) {
 	if(change_) {
-		change_(s);
+		change_(s, change);
 		return;
 	}
 }
@@ -91,7 +91,7 @@ function mv__() {
 	});
 }
 function mv2__() {
-	set_change__(function(s) {
+	set_change__(function(s, change) {
 		set_change__(null);
 		focus__(window, s);
 	});
@@ -135,13 +135,13 @@ function rm__() {
 				return;
 			}
 			rm_sel__();
-			change__("删除后返回");
+			change__("删除后返回", true);
 		});
 	});
 }
 function rm_sel__() {
 	for_tag__(function(tag) {
-		var n = tag.parentNode;
+		var n = tag.parentNode.parentNode;
 		n.parentNode.removeChild(n);
 	});
 	zhugeshow__();
@@ -159,10 +159,12 @@ function sel_no__() {
 </script>
 <%
 赋予列目录以我的参、ls。
+赋予快以我的参、q。
 
 赋予图宽以‘图宽’。
 赋予框宽以1。
 赋予1宽以算术‘图宽’ + ‘框宽’ * 2。
+赋予bar边距以如果‘快’那么20否则0。
 “<style>
 * {margin:0px;padding:0px;}
 img {
@@ -188,12 +190,15 @@ img {
 	vertical-align:middle;
 	display:table-cell;
 }
+.item-3 {
+	height:23px;
+}
 #bar {
 	border:‘框宽’px dashed #000;
 	padding:7px;
 	position:fixed;
-	top:0px;
-	right:0px;
+	top:‘bar边距’px;
+	right:‘bar边距’px;
 	background-color:rgba(255, 255, 255, 0.65);
 }
 body {background:url(‘bg.png’);}
@@ -205,9 +210,14 @@ function add_lnk__(tag, text, path, other) {
 	var d = new__("div");
 	d.className = "item";
 	htm__(d,
-	(path ? '<input type=checkbox class=tag value="' + path + '" ' + other + '>' : '')+
+	'<div class=item-3>' + (path ? '<input type=checkbox class=tag value="' + path + '" ' + other + '>' : '') + '</div>' +
 	'<a href="' + tag + '" target=_blank>' +
-	'<div class=item-1><div class=item-2>' + text + '</div></div></a>');
+<%如果‘快’那么先%>
+	text +
+<%了否则先%>
+	'<div class=item-1><div class=item-2>' + text + '</div></div>' +
+<%了%>
+	'</a>');
 	add__(d, e__("list"));
 }
 
@@ -215,19 +225,27 @@ var img_max_ = 0;
 function add_img__(path, alt) {
 	img_max_++;
 	add_lnk__("show.zsp?" + img_max_,
-			<%如果存在nop【顶】那么alt
-			否则“'<img src="no.png" src2="' + path + '" title="' + alt + '">'”%>,
-			path, "id=i" + img_max_);
+			<%循环1先
+				如果存在nop【顶】那么先
+					alt。
+					跳出。
+				了。
+				如果‘快’那么先
+					img_max_。
+					跳出。
+				了。
+				“'<img src="no.png" src2="' + path + '" title="' + alt + '">'”。
+			了%>, path, "id=i" + img_max_);
 }
 </script>
 </head>
 <body>
-<div id=bar>
+<div id=bar><%赋予br以如果‘快’那么否则<br>%>
 <a href="javascript:mv2__()">移动</a> 
-<a href="javascript:rm__()">删除</a><br>
+<a href="javascript:rm__()">删除</a><%‘br’%>
 <a href="javascript:sel_all__(true)">全选</a> 
 <a href="javascript:sel_all__(false)">不</a> 
-<a href="javascript:sel_no__()">反选</a><br>
+<a href="javascript:sel_no__()">反选</a><%‘br’%>
 <a href="javascript:location.reload()">刷新</a> 
 <a href="other.zsp" target=_blank>other</a> 
 </div>
@@ -287,6 +305,7 @@ function add_img__(path, alt) {
 		上代码。
 	上代码。
 	add_lnk__("?ls=all", "所有");。
+	add_lnk__("?ls=all&q=1", "所有 (quick)");。
 	加目录下代码
 		赋予背后名以‘背后’‘号’。
 		赋予‘背后名’【顶】以我的背后、32、遍历目录、‘目录’、含子目录、返回目录、仅根文件、遍历用代码。
@@ -295,14 +314,14 @@ function add_img__(path, alt) {
 加载util/int.zsp、下原样
 switch(o.type) {
 case "dir":
-	add_lnk__("?ls=" + o.path, o.text, o.path, "");
+	add_lnk__("?ls=" + o.path, o.text, o.path, "> - <a href='?ls=" + o.path + "&q=1' target=_blank>q</a");
 	break;
 case "img":
 	add_img__(o.path, o.alt);
 	zhugeshow__();
 	break;
 }
-上原样、200。
+上原样、如果‘快’那么20否则200。
 %>
 </script>
 </body>
