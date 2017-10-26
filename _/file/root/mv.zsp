@@ -21,6 +21,11 @@ function tags_html__(a) {
 
 var mv_ = null;
 function submit__(f) {
+	if(mv_ == "x") {
+		submit_2__(false);
+		return false;
+	}
+
 	var dir = f.dir.value;
 	if(!dir) {
 		var dirs = e_n__("dir");
@@ -53,16 +58,21 @@ function submit__(f) {
 			tag.value = o.tag;
 			--ok;
 			if(ok == 0) {
-				htm__("tags", "");
-				opener_.change__("移动后返回");
-				if(e__("rm_sel").checked)
-					opener_.rm_sel__();
-				else
-					opener_.sel_all__(false);
+				submit_2__(true, e__("rm_sel").checked);
 			}
 		}, tag);
 	}
 	return false;
+}
+function submit_2__(change, rm_sel) {
+	htm__("tags", "");
+	opener_.change__("移动后返回", change);
+	if(change) {
+		if(rm_sel)
+			opener_.rm_sel__();
+		else
+			opener_.sel_all__(false);
+	}
 }
 
 <%
@@ -86,11 +96,11 @@ function zhe__(i, e) {
 		var val2 = e__('r' + i2).value;
 		if(val2.indexOf(val) != 0) break;
 		var ctl, ctl2 = e__("ctl_" + i2);
+		//if(ctl2.checked) continue;
+		if(htm__(ctl2) == "<%‘++’%>") continue;
 		if(i2 == i) {
 			ctl = e;
 		} else {
-			//if(ctl2.checked) continue;
-			if(htm__(ctl2) == "<%‘++’%>") continue;
 			ctl = e__("ctl" + i2);
 		}
 		htm__(ctl, t1);
@@ -98,9 +108,10 @@ function zhe__(i, e) {
 		e__("s" + i2).style.display = d2;
 		ctl.title = t1 == "<%‘+’%>" ? val2 : "";
 	}
-	if(t1 == "<%‘+’%>" && i3 > 1) {
+	if(t1 == "<%‘+’%>" && i3 > 1)
 		htm__(e, t1 + ".." + i3);
-	}
+	else
+		htm__(e, t1);
 }
 set_opener__(opener);
 window.onunload = function() {
@@ -108,6 +119,9 @@ window.onunload = function() {
 };
 </script>
 <style>
+* {
+	font-size:11px;
+}
 #dirs {
 	word-break:break-all;
 	border:1px dashed #000;
@@ -130,12 +144,14 @@ window.onunload = function() {
 <body>
 <form onsubmit="return submit__(this)">
 <div id=tag>
-<!--checked-->
-<input type=checkbox  id=rm_sel>移除所选<br>
+<!---->
+<input type=checkbox checked id=rm_sel>移除所选<br>
 移动<input type=submit value="mv" onmouseover="mv_=this.value"> |
 复制<input type=submit value="cp" onmouseover="mv_=this.value"> 
 <span id=tags></span> 
 到：
+<br><br>
+<input type=submit value="放弃" onmouseover="mv_='x'">
 </div>
 <div id=dirs>
 <a href="javascript:location.reload()">刷新</a> 
