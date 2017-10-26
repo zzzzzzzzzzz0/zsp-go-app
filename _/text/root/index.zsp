@@ -90,7 +90,14 @@ function add_lnk__(tag, text, text2, text3, att) {
 	text + '</div>' + text2 + '</div></a><div class=bar>' + text3 + '</div></div>');
 	add__(d, e__("list"));
 }
+function rand1__() {
+	var e = e_cn__("path-item");
+	var a = e[Math.floor(Math.random() * e.length)];
+	scrollTo(a.offsetLeft, a.offsetTop);
+	a.click();
+}
 add_lnk__("javascript:location.reload()", "刷新", null, null, "target=_self");
+add_lnk__("javascript:rand1__()", "随便一个", null, null, "target=_self");
 <%
 定义遍历目录、子目录以下代码
 	如果不存在子目录那么赋予子目录以。
@@ -160,7 +167,7 @@ add_lnk__("javascript:location.reload()", "刷新", null, null, "target=_self");
 加载util/int.zsp、下原样
 switch(o.type) {
 case "item":
-	add_lnk__(o.tag, o.text, o.text2, o.text3);
+	add_lnk__(o.tag, o.text, o.text2, o.text3, "class=path-item");
 	if(o.has_img)
 		zhugeshow__();
 	break;
