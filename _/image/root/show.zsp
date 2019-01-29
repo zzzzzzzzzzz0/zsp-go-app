@@ -22,6 +22,7 @@ body {margin:0; padding:0; background:url(<%‘bg.png’%>);}
 	z-index:1;
 	background-color:rgba(255, 255, 255, 0.25);
 	font-size:11px;
+	word-break:break-all;
 }
 .btn {padding:0 7 3 0;}
 a {white-space:nowrap;}
@@ -232,7 +233,11 @@ function set_change__() {
 }
 function mv__() {set_change__();opener.mv__();}
 function rm__() {set_change__();opener.rm__();}
-function quit__() {window.close();}
+function quit__() {
+	if(zS)
+		z$("<%‘使’%>无标签、0。<%‘使’%>无边框、0。");
+	window.close();
+}
 function fs__() {
 	var b = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
 	if(b) {
@@ -305,7 +310,7 @@ function bar_hide__(ctl) {
 	if(zS)
 		switch(i) {
 		case 0: case 1:
-			z$("使主窗、无标签、" + i + "、无边框、" + i);
+			z$("<%‘使’%>无标签、" + i + "。<%‘使’%>无边框、" + i + "。");
 			break;
 		}
 }
@@ -325,18 +330,20 @@ window.document.onkeydown = function(evt) {
 		break;
 	}
 	switch(kc) {
-	case 113:
+	case 113: //F2
 		e__("auto_onblur").checked = false;
 		auto__(true);
 		bar_hide__(true);
 		if(old_key_ != "R") {
 			old_key_ = "R";
-			rand__();
+			title_old_key__();
+			//rand__();
 		}
 		return;
 	}
 	switch(key) {
 	case "F":fs__();return;
+	case "T":first__();return;
 	case "B":back__();return;
 	case "N":next__();break;
 	case "E":end__();return;
@@ -353,12 +360,16 @@ window.document.onkeydown = function(evt) {
 	case "D":rm__();return;
 	case "M":mv__();return;
 	case "U":auto__();return;
-	case "T":e__("auto_onblur").click();return;
+	case "J":e__("auto_onblur").click();return;
 	}
 	if(zS)
 		switch(kc) {
-		case 116:location.reload();return;
-		case 122:fs__();return;
+		case 116: //F5
+			location.reload();
+			return;
+		case 122: //F11
+			fs__();
+			return;
 		}
 };
 </script>
@@ -369,13 +380,13 @@ window.document.onkeydown = function(evt) {
 	“<a href="javascript:‘代码’">‘文’</a>”。
 	</div>。
 上代码。
-加first__()、“第一页”。
+加first__()、“第一页T”。
 加back__()、“上一页B”。
 加next__()、“下一页N”。
 加end__()、“最后页E”。
 加rand__()、“随机页R”。
 加auto__()、“<span id=auto2></span>自动U”。
-“<!--失去焦点时暂停--><input type=checkbox checked id=auto_onblur>焦T”。
+“<!--失去焦点时暂停--><input type=checkbox checked id=auto_onblur>焦J”。
 加reload__()、刷新。
 加s1__()、“1 : 1”。
 加s__()、放大A。
@@ -385,7 +396,7 @@ window.document.onkeydown = function(evt) {
 加f__()、水平翻转。
 加up__(true)、上调O。
 加up__(false)、下调P。
-加fs__()、“全屏F”。
+加fs__()、“全屏”。
 加kao__()、“靠<span id=kao>右</span>”。
 加bar_hide__()、隐藏H。
 （D、M）

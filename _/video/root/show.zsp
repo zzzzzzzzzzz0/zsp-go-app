@@ -23,7 +23,7 @@ function play__(o, p) {
 		p = '&p=' + p;
 	window.open('play.zsp?i=<%‘号’%>' + o + p, 'ctrlpanl');
 	if(p && z$)
-		z$("使主窗、最小化");
+		z$("<%‘使’%>最小化");
 }
 </script>
 <script src="<%‘文管服’%>/1.js"></script>
